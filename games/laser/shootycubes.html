@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>I AM BECOME DEATH, DESTROYER OF CUBES</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+<script src="js/three.min.js"></script>
+<script src="js/OBJLoader.js"></script>
+<script type="x-shader/x-vertex" id="vertexShader">
+      // GLSL vertex shader
+    varying vec4 v_Normal;
+    varying vec4 v_ViewPosition;
+
+    void main() {
+       gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+       vec4 normal4 = vec4(normal,0);
+       v_Normal = modelViewMatrix*normal4;
+       v_ViewPosition = modelViewMatrix*vec4(position,1.0);
+  }
+</script>
+<script type="x-shader/x-fragment" id="myPhong">
+     // GLSL fragment shader
+  uniform vec3 lightColor;        // light: diffuse + specular
+  uniform vec3 ambientColor;      // light: ambient
+  uniform vec3 lightPosition;     // light position
+  uniform vec3 ka;                // ambient reflectance
+  uniform vec3 kd;                // diffuse reflectance
+  uniform vec3 ks;                // specular reflectance
+  uniform float nSpec;            // shininess
+  varying vec4 v_Normal;          // vertex normal, in VCS
+  varying vec4 v_ViewPosition;    // vertex position, in VCS
+
+  void main() {
+
+      // AMBIENT TERM
+      vec3 ambient_light = ambientColor * ka; // i_a * k_a
+
+      // DIFFUSE TERM
+      vec3 n = normalize(vec3(v_Normal)); // normal vector
+      vec3 l = normalize(lightPosition - vec3(v_ViewPosition)); // points from vertex towards light
+      vec3 diffuse_light = lightColor * kd * max(0.0, dot(n, l));  // i_i * k_diff * (n dot l)
+
+      // SPECULAR TERM
+      vec3 r = normalize(reflect(l,n)); // points from vertex towards direction of reflection
+      vec3 v = normalize(-vec3(v_ViewPosition)); // points from vertex towards eye
+      vec3 specular_light = lightColor * ks * max(0.0, pow(dot(r, v),nSpec)); // i_i * k_spec * (r dot v)^n
+
+      // TOTAL
+      vec3 total_light = ambient_light + diffuse_light + specular_light; // sum all the terms
+
+    gl_FragColor = vec4(total_light,1);
+}
+</script>
+<!--<script src="js/loadOBJ.js"></script>-->
+
+<script src="js/Audio.js"></script>
+<script src="js/AudioListener.js"></script>
+<script src="fonts/helvetiker_regular.typeface.js"></script>
+<script src="a4.js"></script>
+</body>
+</html>
