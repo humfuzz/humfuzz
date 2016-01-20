@@ -3,29 +3,59 @@
 <head>
     <title>IS THERE A GIG TODAY?</title>
     <style type="text/css">
-            body {
-                text-align: center;
-                font-family: sans-serif;
-            }
-            .big {
-                font-size: 120pt;
-                font-weight: bold;
-            }
-            .small {
-                font-size: 30pt;
-                position: relative;
-                left: -200px;
-                top: 100px;
-                margin: 0;
-                color: #CCC;
-            }
+        body {
+            text-align: center;
+            font-family: sans-serif;
+        }
+        #big {
+            font-size: 120pt;
+            font-weight: bold;
+        }
+        #small {
+            font-size: 18pt;
+            position: relative;
+            left: -50px;
+            top: 100px;
+            margin: 0;
+            color: #CCC;
+        }
     </style>
+
 </head>
 <body>
     <center>
-        <p class="big">
+        <p id="big">
         NO
         </p>
+        <p id="small">
+        
+        </p>
+
     </center>
 </body>
+<script type="text/javascript">
+    var gigs = ["1/29/2016"]; // days we actually have gigs
+    var gig_deets = [ // name, time, location
+        ["January Jam Benefit Concert | UMI & Dollar Project", "[tba]", "SUB Partyroom"]
+    ];
+
+    var today = new Date();
+    var today_s = today.toLocaleDateString();
+
+    var g = gigs.indexOf(today_s);
+
+    var info;
+
+    if (g >= 0) { // we have a gig today
+        document.getElementById("big").innerHTML = "YES";
+        info = gig_deets [g][0] + " , " + gig_deets[g][1] + " @ " + gig_deets[g][2];
+        document.getElementById("small").innerHTML = info;
+    
+    } else { // we don't have a gig today, when's next one?
+        info = "next gig probably on " + gigs[0] + ": " + gig_deets [0][0] + " , " + gig_deets[0][1] + " @ " + gig_deets[0][2];
+
+        document.getElementById("small").innerHTML = info;
+        console.log("help");
+    }
+</script>
 </html>
