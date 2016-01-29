@@ -34,9 +34,10 @@
     </center>
 </body>
 <script type="text/javascript">
-    var gigs = ["1/29/2016"]; // days we actually have gigs
+    var gigs = ["1/29/2016","2/1/2016"]; // days we actually have gigs
     var gig_deets = [ // name, time, location
-        ["January Jam Benefit Concert | UMI & Dollar Project", "[tba]", "SUB Partyroom"]
+        ["January Jam Benefit Concert | UMI & Dollar Project", "7:45p", "SUB Partyroom"],
+        ["Sound for Syria", "~7p", "Nest Great Hall"]
     ];
 
     var today = new Date();
@@ -52,10 +53,11 @@
         document.getElementById("small").innerHTML = info;
     
     } else { // we don't have a gig today, when's next one?
-        info = "next gig probably on " + gigs[0] + ": " + gig_deets [0][0] + " , " + gig_deets[0][1] + " @ " + gig_deets[0][2];
+        info = "next gig probably on " + gigs[0] + ": " + gig_deets [0][0] + ", " + gig_deets[0][1] + " @ " + gig_deets[0][2];
 
         document.getElementById("small").innerHTML = info;
         console.log("help");
     }
 </script>
 </html>
+<!-- "dude" - nick kan -->
