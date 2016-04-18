@@ -313,6 +313,7 @@ function draw_push(x, y) {
         gradient.addColorStop("0","grey");
         gradient.addColorStop("1.0","blue");
     } else {
+        gradient.addColorStop("0","red");
         gradient.addColorStop((y/canvas.height).toString(),"grey");
         gradient.addColorStop("1.0","blue");
     }   
